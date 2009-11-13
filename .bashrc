@@ -4,16 +4,12 @@
 function parse_git_dirty {
   status=`git status 2> /dev/null`
   dirty=` echo -n "${status}" 2> /dev/null | grep -q "Changed but not updated" 2> /dev/null; echo "$?"`
-  untracked=`echo -n "${status}" 2> /dev/null | grep -q "Untracked files" 2> /dev/null; echo "$?"`
   ahead=` echo -n "${status}" 2> /dev/null | grep -q "Your branch is ahead of" 2> /dev/null; echo "$?"`
   newfile=` echo -n "${status}" 2> /dev/null | grep -q "new file:" 2> /dev/null; echo "$?"`
   renamed=` echo -n "${status}" 2> /dev/null | grep -q "renamed:" 2> /dev/null; echo "$?"`
   bits=''
   if [ "${dirty}" == "0" ]; then
     bits="${bits}☭"
-  fi
-  if [ "${untracked}" == "0" ]; then
-    bits="${bits}?"
   fi
   if [ "${newfile}" == "0" ]; then
     bits="${bits}*"
@@ -86,7 +82,7 @@ else
 fi
 unset color_prompt force_color_prompt
 
-PS1='\[\033[00;32m\]\u\[\033[01m\]@\[\033[00;36m\]\h\[\033[01m\] \! \[\033[00;35m\]\w\[\033[00m\]\[\033[01;30m\]$(parse_git_branch)\[\033[00m\]\$ '
+PS1='\[\033[00;32m\]\u\[\033[01m\]@\[\033[00;36m\]\h\[\033[01m\]:\[\033[00;35m\]\w\[\033[00m\]\[\033[01;30m\]$(parse_git_branch)\[\033[00m\] \$ '
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
