@@ -9,16 +9,16 @@ function parse_git_dirty {
   renamed=` echo -n "${status}" 2> /dev/null | grep -q "renamed:" 2> /dev/null; echo "$?"`
   bits=''
   if [ "${dirty}" == "0" ]; then
-    bits="${bits}☭"
+    bits="${bits} !"
   fi
   if [ "${newfile}" == "0" ]; then
-    bits="${bits}*"
+    bits="${bits} *"
   fi
   if [ "${ahead}" == "0" ]; then
-    bits="${bits}+"
+    bits="${bits} +"
   fi
   if [ "${renamed}" == "0" ]; then
-    bits="${bits}>"
+    bits="${bits} >"
   fi
   echo "${bits}"
 }
